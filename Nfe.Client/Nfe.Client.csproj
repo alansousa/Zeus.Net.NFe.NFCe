@@ -1,21 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DD441D1C-1F4A-4631-AA72-015C4FA735D2}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{6E14939F-A3BB-405F-9D0B-6F598B0CC905}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NFe.Integracao</RootNamespace>
-    <AssemblyName>NFe.Integracao</AssemblyName>
+    <RootNamespace>Nfe.Client</RootNamespace>
+    <AssemblyName>Nfe.Client</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -25,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -33,43 +29,59 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
-  <PropertyGroup>
-    <TargetZone>LocalIntranet</TargetZone>
-  </PropertyGroup>
-  <PropertyGroup>
-    <GenerateManifests>false</GenerateManifests>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignManifests>false</SignManifests>
-  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\..\Plexos\trunk\Projeto\Plexos\bin\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Plexos.DAL">
+      <HintPath>..\..\..\Plexos\trunk\Projeto\Plexos\bin\Plexos.DAL.dll</HintPath>
+    </Reference>
+    <Reference Include="Plexos.DTO">
+      <HintPath>..\..\..\Plexos\trunk\Projeto\Plexos\bin\Plexos.DTO.dll</HintPath>
+    </Reference>
+    <Reference Include="Plexos.LIB">
+      <HintPath>..\..\..\Plexos\trunk\Projeto\Plexos\bin\Plexos.LIB.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enums\Comando.cs" />
-    <Compile Include="NFeBuilder.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Configuracao\ConfiguracaoApp.cs" />
+    <Compile Include="Configuracao\ConfiguracaoCsc.cs" />
+    <Compile Include="Configuracao\EnumBooleanConverter.cs" />
+    <Compile Include="Configuracao\EnumParaBool.cs" />
+    <Compile Include="Configuracao\EnumParaInteger.cs" />
+    <Compile Include="Configuracao\Funcoes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Enums\TipoXmlNFe.cs" />
-    <Compile Include="NFeFacade.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Servicos\FaturamentoExportarXMLDAL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NFe.Classes\NFe.Classes.csproj">
       <Project>{29ca1da2-440d-484b-951a-cf1b2eb27984}</Project>
       <Name>NFe.Classes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NFe.Danfe.Base\NFe.Danfe.Base.csproj">
+      <Project>{80c6093c-47d5-41a1-9fa0-e218e82fa666}</Project>
+      <Name>NFe.Danfe.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NFe.Danfe.Fast\NFe.Danfe.Fast.csproj">
+      <Project>{b7f6a2ff-fd0e-4b44-82b3-371605cd0510}</Project>
+      <Name>NFe.Danfe.Fast</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NFe.Integracao\NFe.Integracao.csproj">
+      <Project>{dd441d1c-1f4a-4631-aa72-015c4fa735d2}</Project>
+      <Name>NFe.Integracao</Name>
     </ProjectReference>
     <ProjectReference Include="..\NFe.Servicos\NFe.Servicos.csproj">
       <Project>{ccfdb136-3ee3-4aed-aa69-26abbcb553c6}</Project>
@@ -84,9 +96,12 @@
       <Name>NFe.Wsdl</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <None Include="app.config" />
-    <None Include="Properties\app.manifest" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

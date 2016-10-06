@@ -30,65 +30,31 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using System.ComponentModel;
-using NFe.Utils.Annotations;
-
-namespace NFe.Utils
+namespace Nfe.Client.Configuracao
 {
-    public class ConfiguracaoCertificado : INotifyPropertyChanged
+    public class ConfiguracaoCsc
     {
-        public ConfiguracaoCertificado()
+        public ConfiguracaoCsc(string cIdToken, string csc)
         {
-            Arquivo = @"C:\\Certificado\\arquivo certificado boa vista.pfx";
-            Senha = "04238297";
-        }
-
-        private string _serial;
-        private string _arquivo;
-
-        /// <summary>
-        ///     Nº de série do certificado digital
-        /// </summary>
-        public string Serial
-        {
-            get { return _serial; }
-            set
-            {
-                if (value == _serial) return;
-                _serial = value;
-                if (!string.IsNullOrEmpty(value))
-                    Arquivo = null;
-                OnPropertyChanged("Serial");
-            }
+            this.CIdToken = cIdToken;
+            Csc = csc;
         }
 
         /// <summary>
-        ///     Arquivo do certificado digital
+        /// Construtor sem parâmetros para serialização
         /// </summary>
-        public string Arquivo
+        private ConfiguracaoCsc()
         {
-            get { return _arquivo; }
-            set
-            {
-                if (value == _arquivo) return;
-                _arquivo = value;
-                if (!string.IsNullOrEmpty(value))
-                    Serial = null;
-                OnPropertyChanged("Arquivo");
-            }
         }
 
         /// <summary>
-        ///     Senha do certificado digital
+        /// Identificador do CSC – Código de Segurança do Contribuinte no Banco de Dados da SEFAZ
         /// </summary>
-        public string Senha { get; set; }
+        public string CIdToken { get; set; }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null) PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        /// <summary>
+        /// Código de Segurança do Contribuinte(antigo Token)
+        /// </summary>
+        public string Csc { get; set; }
     }
 }

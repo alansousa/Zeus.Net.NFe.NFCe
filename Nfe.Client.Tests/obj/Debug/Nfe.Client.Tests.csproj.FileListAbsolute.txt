@@ -1,0 +1,1 @@
+C:\git\Zeus.Net.NFe.NFCe\Nfe.Client.Tests\obj\Debug\Nfe.Client.Tests.csprojResolveAssemblyReference.cache

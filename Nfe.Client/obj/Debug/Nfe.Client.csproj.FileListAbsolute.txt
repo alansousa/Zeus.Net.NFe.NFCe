@@ -1,0 +1,3 @@
+C:\git\Zeus.Net.NFe.NFCe\Nfe.Client\obj\Debug\Nfe.Client.csprojResolveAssemblyReference.cache
+C:\git\Zeus.Net.NFe.NFCe\Nfe.Client\obj\Debug\Nfe.Client.Properties.Resources.resources
+C:\git\Zeus.Net.NFe.NFCe\Nfe.Client\obj\Debug\Nfe.Client.csproj.GenerateResource.Cache

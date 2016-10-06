@@ -30,65 +30,22 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using System.ComponentModel;
-using NFe.Utils.Annotations;
 
-namespace NFe.Utils
+using System;
+using System.Globalization;
+
+namespace Nfe.Client.Configuracao
 {
-    public class ConfiguracaoCertificado : INotifyPropertyChanged
+    public class EnumBooleanConverter : IValueConverter
     {
-        public ConfiguracaoCertificado()
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            Arquivo = @"C:\\Certificado\\arquivo certificado boa vista.pfx";
-            Senha = "04238297";
+            return value.Equals(parameter);
         }
 
-        private string _serial;
-        private string _arquivo;
-
-        /// <summary>
-        ///     Nº de série do certificado digital
-        /// </summary>
-        public string Serial
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            get { return _serial; }
-            set
-            {
-                if (value == _serial) return;
-                _serial = value;
-                if (!string.IsNullOrEmpty(value))
-                    Arquivo = null;
-                OnPropertyChanged("Serial");
-            }
-        }
-
-        /// <summary>
-        ///     Arquivo do certificado digital
-        /// </summary>
-        public string Arquivo
-        {
-            get { return _arquivo; }
-            set
-            {
-                if (value == _arquivo) return;
-                _arquivo = value;
-                if (!string.IsNullOrEmpty(value))
-                    Serial = null;
-                OnPropertyChanged("Arquivo");
-            }
-        }
-
-        /// <summary>
-        ///     Senha do certificado digital
-        /// </summary>
-        public string Senha { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null) PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            return ((bool) value) ? parameter : Binding.DoNothing;
         }
     }
 }

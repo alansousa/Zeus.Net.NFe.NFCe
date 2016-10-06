@@ -182,9 +182,9 @@ namespace NFe.Danfe.AppTeste
                 #region Abre a visualização do relatório para impressão
 
                 var danfe = new DanfeFrNfce(nfe, _configuracoes.ConfiguracaoDanfeNfce, _configuracoes.CIdToken, _configuracoes.Csc);
-                danfe.Visualizar();
+                //danfe.Visualizar();
                 //danfe.Imprimir();
-                //danfe.ExibirDesign();
+                danfe.ExibirDesign();
                 //danfe.ExportarPdf(@"d:\teste.pdf");
 
                 #endregion
@@ -215,7 +215,7 @@ namespace NFe.Danfe.AppTeste
                 #region Abre a visualização do relatório para impressão
 
                 var danfe = new DanfeFrNfe(proc, new ConfiguracaoDanfeNfe(_configuracoes.ConfiguracaoDanfeNfce.Logomarca));
-                //danfe.Visualizar();
+               //danfe.Visualizar();
                 //danfe.Imprimir();
                 danfe.ExibirDesign();
                 //danfe.ExportarPdf(@"d:\teste.pdf");

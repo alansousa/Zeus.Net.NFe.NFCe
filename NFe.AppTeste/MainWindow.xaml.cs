@@ -83,8 +83,13 @@ namespace NFe.AppTeste
         public MainWindow()
         {
             InitializeComponent();
+
+            TxtArquivoCertificado.Text = @"C:\\Certificado\\arquivo certificado boa vista.pfx";
+            TxtSenhaCertificado.Text = "04238297";
+            
             CarregarConfiguracao();
             DataContext = _configuracoes;
+            
         }
 
         private void CarregaDadosCertificado()
@@ -255,9 +260,12 @@ namespace NFe.AppTeste
                 var numero = Funcoes.InpuBox(this, "Criar e Enviar NFe", "Número da Nota:");
                 if (string.IsNullOrEmpty(numero)) throw new Exception("O Número deve ser informado!");
 
-                _nfe = GetNf(Convert.ToInt32(numero), modelo, versaoServico);
+                //_nfe =   GetNf(Convert.ToInt32(numero), modelo, versaoServico);
                 _nfe.Assina();
-                _nfe.infNFeSupl = new infNFeSupl() { qrCode = _nfe.infNFeSupl.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoCsc.CIdToken, _configuracoes.ConfiguracaoCsc.Csc) };
+                //_nfe.infNFeSupl = new infNFeSupl()
+                //{
+                //    qrCode = _nfe.infNFeSupl.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoCsc.CIdToken, _configuracoes.ConfiguracaoCsc.Csc)
+                //};
                 _nfe.Valida();
 
                 #endregion
@@ -316,11 +324,10 @@ namespace NFe.AppTeste
                 var lote = Funcoes.InpuBox(this, "Criar e Enviar NFe", "Id do Lote:");
                 if (string.IsNullOrEmpty(lote)) throw new Exception("A Id do lote deve ser informada!");
 
-                _nfe = GetNf(Convert.ToInt32(numero), _configuracoes.CfgServico.ModeloDocumento,
-                    _configuracoes.CfgServico.VersaoNFeAutorizacao);
+                //_nfe = GetNf(Convert.ToInt32(numero), _configuracoes.CfgServico.ModeloDocumento,_configuracoes.CfgServico.VersaoNFeAutorizacao);
                 _nfe.Assina(); //não precisa validar aqui, pois o lote será validado em ServicosNFe.NFeAutorizacao
                 //A URL do QR-Code deve ser gerada em um objeto nfe já assinado, pois na URL vai o DigestValue que é gerado por ocasião da assinatura
-                _nfe.infNFeSupl = new infNFeSupl() { qrCode = _nfe.infNFeSupl.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoCsc.CIdToken, _configuracoes.ConfiguracaoCsc.Csc) }; //Define a URL do QR-Code.
+                //_nfe.infNFeSupl = new infNFeSupl() { qrCode = _nfe.infNFeSupl.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoCsc.CIdToken, _configuracoes.ConfiguracaoCsc.Csc) }; //Define a URL do QR-Code.
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
                 var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Assincrono, new List<Classes.NFe> {_nfe}, true/*Envia a mensagem compactada para a SEFAZ*/);
 
@@ -797,17 +804,17 @@ namespace NFe.AppTeste
         {
             var ide = new ide
             {
-                cUF = Estado.SE,
+                cUF = Estado.RJ,
                 natOp = "VENDA",
                 indPag = IndicadorPagamento.ipVista,
                 mod = modelo,
                 serie = 1,
                 nNF = numero,
                 tpNF = TipoNFe.tnSaida,
-                cMunFG = 2802908,
+                cMunFG = 3304201,
                 tpEmis = _configuracoes.CfgServico.tpEmis,
                 tpImp = TipoImpressao.tiRetrato,
-                cNF = "1234",
+                cNF = "14543",
                 tpAmb = _configuracoes.CfgServico.tpAmb,
                 finNFe = FinalidadeNFe.fnNormal,
                 verProc = "3.000"
@@ -910,12 +917,12 @@ namespace NFe.AppTeste
             var enderDest = new enderDest
             {
                 xLgr = "RUA ...",
-                nro = "S/N",
-                xBairro = "CENTRO",
-                cMun = 2802908,
-                xMun = "ITABAIANA",
-                UF = "SE",
-                CEP = "49500000",
+                nro = "300",
+                xBairro = "PARAISO",
+                cMun = 3304201,
+                xMun = "RESENDE",
+                UF = "RJ",
+                CEP = "27536025",
                 cPais = 1058,
                 xPais = "BRASIL"
             };

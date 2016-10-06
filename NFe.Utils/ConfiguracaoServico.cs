@@ -38,7 +38,7 @@ using NFe.Classes.Servicos.Tipos;
 
 namespace NFe.Utils
 {
-    public sealed class ConfiguracaoServico
+    public class ConfiguracaoServico
     {
         private static volatile ConfiguracaoServico _instancia;
         private static readonly object SyncRoot = new object();
@@ -48,6 +48,31 @@ namespace NFe.Utils
         private ConfiguracaoServico()
         {
             Certificado = new ConfiguracaoCertificado();
+            cUF = Estado.RJ;
+            tpAmb = TipoAmbiente.taHomologacao;
+            tpEmis = TipoEmissao.teNormal;
+
+            ModeloDocumento = Classes.Informacoes.Identificacao.Tipos.ModeloDocumento.NFe;
+            DiretorioSchemas = "C:\\git\\Zeus.Net.NFe.NFCe\\NFe.AppTeste\\Schemas";
+            SalvarXmlServicos = true;
+            DiretorioSalvarXml = "C:\\Users\\jonatas Landim\\Documents\\Nova pasta (4)";
+            TimeOut = 3000;
+            
+            VersaoNFeAutorizacao = VersaoServico.ve310;
+            VersaoNfeConsultaCadastro = VersaoServico.ve310;
+            VersaoNfeConsultaDest = VersaoServico.ve310;
+            VersaoNfeConsultaProtocolo = VersaoServico.ve310;
+            VersaoNFeDistribuicaoDFe = VersaoServico.ve310;
+            VersaoNfeDownloadNF = VersaoServico.ve310;
+            VersaoNfeInutilizacao = VersaoServico.ve310;
+            VersaoNfeRecepcao = VersaoServico.ve310;
+            VersaoNFeRetAutorizacao = VersaoServico.ve310;
+            VersaoNfeRetRecepcao = VersaoServico.ve310;
+            VersaoNfeStatusServico = VersaoServico.ve310;
+            VersaoRecepcaoEventoCceCancelamento = VersaoServico.ve310;
+            VersaoRecepcaoEventoEpec = VersaoServico.ve310;
+            VersaoRecepcaoEventoManifestacaoDestinatario = VersaoServico.ve310;
+
         }
 
         /// <summary>
