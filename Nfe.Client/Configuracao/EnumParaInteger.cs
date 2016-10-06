@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace Nfe.Client.Configuracao
 {
-    public class EnumParaInteger : IValueConverter
+    public class EnumParaInteger 
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

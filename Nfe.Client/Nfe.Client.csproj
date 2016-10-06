@@ -54,17 +54,7 @@
   <ItemGroup>
     <Compile Include="Configuracao\ConfiguracaoApp.cs" />
     <Compile Include="Configuracao\ConfiguracaoCsc.cs" />
-    <Compile Include="Configuracao\EnumBooleanConverter.cs" />
-    <Compile Include="Configuracao\EnumParaBool.cs" />
-    <Compile Include="Configuracao\EnumParaInteger.cs" />
-    <Compile Include="Configuracao\Funcoes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <DependentUpon>Resources.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Servicos\FaturamentoExportarXMLDAL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NFe.Classes\NFe.Classes.csproj">
@@ -79,10 +69,6 @@
       <Project>{b7f6a2ff-fd0e-4b44-82b3-371605cd0510}</Project>
       <Name>NFe.Danfe.Fast</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NFe.Integracao\NFe.Integracao.csproj">
-      <Project>{dd441d1c-1f4a-4631-aa72-015c4fa735d2}</Project>
-      <Name>NFe.Integracao</Name>
-    </ProjectReference>
     <ProjectReference Include="..\NFe.Servicos\NFe.Servicos.csproj">
       <Project>{ccfdb136-3ee3-4aed-aa69-26abbcb553c6}</Project>
       <Name>NFe.Servicos</Name>
@@ -96,12 +82,8 @@
       <Name>NFe.Wsdl</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    <Folder Include="Servicos\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

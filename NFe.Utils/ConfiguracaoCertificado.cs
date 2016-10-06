@@ -37,6 +37,12 @@ namespace NFe.Utils
 {
     public class ConfiguracaoCertificado : INotifyPropertyChanged
     {
+        public ConfiguracaoCertificado(string arquivo, string senha)
+        {
+            Arquivo = arquivo;
+            Senha = senha;
+        }
+
         public ConfiguracaoCertificado()
         {
             Arquivo = @"C:\\Certificado\\arquivo certificado boa vista.pfx";

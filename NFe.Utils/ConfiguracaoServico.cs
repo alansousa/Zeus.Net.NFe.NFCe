@@ -45,19 +45,21 @@ namespace NFe.Utils
         private string _diretorioSchemas;
         private bool _salvarXmlServicos;
 
-        private ConfiguracaoServico()
+        public ConfiguracaoServico(ConfiguracaoCertificado certificado, TipoAmbiente ambiente, TipoEmissao emissao,
+            Estado uf,
+            ModeloDocumento? modelo = null, string diretorioSchemas = null, string diretorioXmls = null)
         {
-            Certificado = new ConfiguracaoCertificado();
-            cUF = Estado.RJ;
-            tpAmb = TipoAmbiente.taHomologacao;
-            tpEmis = TipoEmissao.teNormal;
-
-            ModeloDocumento = Classes.Informacoes.Identificacao.Tipos.ModeloDocumento.NFe;
-            DiretorioSchemas = "C:\\git\\Zeus.Net.NFe.NFCe\\NFe.AppTeste\\Schemas";
-            SalvarXmlServicos = true;
-            DiretorioSalvarXml = "C:\\Users\\jonatas Landim\\Documents\\Nova pasta (4)";
+            cUF = uf;
+            Certificado = certificado;
+            tpAmb = ambiente;
+            tpEmis = emissao;
             TimeOut = 3000;
-            
+
+            ModeloDocumento = modelo ?? ModeloDocumento.NFe;
+            DiretorioSchemas = diretorioSchemas ?? "C:\\git\\Zeus.Net.NFe.NFCe\\NFe.AppTeste\\Schemas"; 
+            SalvarXmlServicos = true;
+            DiretorioSalvarXml = diretorioXmls ?? "C:\\Users\\jonatas Landim\\Documents\\Nova pasta (4)";
+
             VersaoNFeAutorizacao = VersaoServico.ve310;
             VersaoNfeConsultaCadastro = VersaoServico.ve310;
             VersaoNfeConsultaDest = VersaoServico.ve310;
@@ -72,8 +74,9 @@ namespace NFe.Utils
             VersaoRecepcaoEventoCceCancelamento = VersaoServico.ve310;
             VersaoRecepcaoEventoEpec = VersaoServico.ve310;
             VersaoRecepcaoEventoManifestacaoDestinatario = VersaoServico.ve310;
-
+            VersaoNfceAministracaoCSC = VersaoServico.ve310;
         }
+
 
         /// <summary>
         ///     Configurações relativas ao Certificado Digital
@@ -216,19 +219,19 @@ namespace NFe.Utils
         /// <summary>
         ///     Instância do Singleton de ConfiguracaoServico
         /// </summary>
-        public static ConfiguracaoServico Instancia
-        {
-            get
-            {
-                if (_instancia != null) return _instancia;
-                lock (SyncRoot)
-                {
-                    if (_instancia != null) return _instancia;
-                    _instancia = new ConfiguracaoServico();
-                }
+        //public static ConfiguracaoServico Instancia
+        //{
+        //    get
+        //    {
+        //        if (_instancia != null) return _instancia;
+        //        lock (SyncRoot)
+        //        {
+        //            if (_instancia != null) return _instancia;
+        //            _instancia = new ConfiguracaoServico();
+        //        }
 
-                return _instancia;
-            }
-        }
+        //        return _instancia;
+        //    }
+        //}
     }
 }

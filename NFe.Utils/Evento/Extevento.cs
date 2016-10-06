@@ -53,13 +53,13 @@ namespace NFe.Utils.Evento
         /// </summary>
         /// <param name="evento"></param>
         /// <returns>Retorna um objeto do tipo evento assinado</returns>
-        public static evento Assina(this evento evento)
+        public static evento Assina(this evento evento, ConfiguracaoServico servico)
         {
             var eventoLocal = evento;
             if (eventoLocal.infEvento.Id == null)
                 throw new Exception("Não é possível assinar um onjeto evento sem sua respectiva Id!");
 
-            var assinatura = Assinador.ObterAssinatura(eventoLocal, eventoLocal.infEvento.Id);
+            var assinatura = Assinador.ObterAssinatura(eventoLocal,servico, eventoLocal.infEvento.Id);
             eventoLocal.Signature = assinatura;
             return eventoLocal;
         }

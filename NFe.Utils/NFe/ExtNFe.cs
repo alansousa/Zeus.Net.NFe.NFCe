@@ -48,7 +48,7 @@ namespace NFe.Utils.NFe
         /// <returns>Retorna uma NFe carregada com os dados do XML</returns>
         public static Classes.NFe CarregarDeArquivoXml(this Classes.NFe nfe, string arquivoXml)
         {
-            var s = FuncoesXml.ObterNodeDeArquivoXml(typeof (Classes.NFe).Name, arquivoXml);
+            var s = FuncoesXml.ObterNodeDeArquivoXml(typeof(Classes.NFe).Name, arquivoXml);
             return FuncoesXml.XmlStringParaClasse<Classes.NFe>(s);
         }
 
@@ -70,7 +70,7 @@ namespace NFe.Utils.NFe
         /// <returns>Retorna um objeto do tipo NFe</returns>
         public static Classes.NFe CarregarDeXmlString(this Classes.NFe nfe, string xmlString)
         {
-            var s = FuncoesXml.ObterNodeDeStringXml(typeof (Classes.NFe).Name, xmlString);
+            var s = FuncoesXml.ObterNodeDeStringXml(typeof(Classes.NFe).Name, xmlString);
             return FuncoesXml.XmlStringParaClasse<Classes.NFe>(s);
         }
 
@@ -89,18 +89,18 @@ namespace NFe.Utils.NFe
         /// </summary>
         /// <param name="nfe"></param>
         /// <returns>Retorna um objeto NFe devidamente tradado</returns>
-        public static Classes.NFe Valida(this Classes.NFe nfe)
+        public static Classes.NFe Valida(this Classes.NFe nfe, ConfiguracaoServico servico)
         {
             if (nfe == null) throw new ArgumentNullException("nfe");
 
             var versao = (Decimal.Parse(nfe.infNFe.versao, CultureInfo.InvariantCulture));
 
             var xmlNfe = nfe.ObterXmlString();
-            var cfgServico = ConfiguracaoServico.Instancia;
+            var cfgServico = servico;
             if (versao < 3)
-                Validador.Valida(ServicoNFe.NfeRecepcao, cfgServico.VersaoNfeRecepcao, xmlNfe, false);
+                Validador.Valida(servico, ServicoNFe.NfeRecepcao, cfgServico.VersaoNfeRecepcao, xmlNfe, false);
             if (versao >= 3)
-                Validador.Valida(ServicoNFe.NFeAutorizacao, cfgServico.VersaoNFeAutorizacao, xmlNfe, false);
+                Validador.Valida(servico, ServicoNFe.NFeAutorizacao, cfgServico.VersaoNFeAutorizacao, xmlNfe, false);
 
             return nfe; //Para uso no formato fluent
         }
@@ -110,7 +110,7 @@ namespace NFe.Utils.NFe
         /// </summary>
         /// <param name="nfe"></param>
         /// <returns>Retorna um objeto do tipo NFe assinado</returns>
-        public static Classes.NFe Assina(this Classes.NFe nfe)
+        public static Classes.NFe Assina(this Classes.NFe nfe, ConfiguracaoServico servico)
         {
             var nfeLocal = nfe;
             if (nfeLocal == null) throw new ArgumentNullException("nfe");
@@ -129,7 +129,7 @@ namespace NFe.Utils.NFe
             nfeLocal.infNFe.Id = Gerador.GerarId(chave);
             nfeLocal.infNFe.ide.cDV = Convert.ToInt16(chave.Substring(chave.Length - 1, 1));
 
-            var assinatura = Assinador.ObterAssinatura(nfeLocal, nfeLocal.infNFe.Id);
+            var assinatura = Assinador.ObterAssinatura(nfeLocal, servico, nfeLocal.infNFe.Id);
             nfeLocal.Signature = assinatura;
             return nfeLocal;
         }

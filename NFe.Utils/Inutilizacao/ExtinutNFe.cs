@@ -53,13 +53,13 @@ namespace NFe.Utils.Inutilizacao
         /// </summary>
         /// <param name="inutNFe"></param>
         /// <returns>Retorna um objeto do tipo inutNFe assinado</returns>
-        public static inutNFe Assina(this inutNFe inutNFe)
+        public static inutNFe Assina(this inutNFe inutNFe, ConfiguracaoServico servico)
         {
             var inutNFeLocal = inutNFe;
             if (inutNFeLocal.infInut.Id == null)
                 throw new Exception("Não é possível assinar um onjeto inutNFe sem sua respectiva Id!");
 
-            var assinatura = Assinador.ObterAssinatura(inutNFeLocal, inutNFeLocal.infInut.Id);
+            var assinatura = Assinador.ObterAssinatura(inutNFeLocal, servico,inutNFeLocal.infInut.Id);
             inutNFeLocal.Signature = assinatura;
             return inutNFeLocal;
         }

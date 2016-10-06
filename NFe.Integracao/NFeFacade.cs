@@ -35,6 +35,7 @@ using System;
 using System.Text;
 using System.IO;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using NFe.Classes;
 using NFe.Classes.Servicos.Tipos;
 using NFe.Classes.Servicos.Status;
@@ -51,9 +52,11 @@ namespace NFe.Integracao
         //Nome e path do arquivo de configurações a ser considerado na execução do app.
         private readonly string _nomeArquivoConfiguracoes;
         private readonly string _pathArquivoConfiguracoes;
+        private readonly ConfiguracaoServico _configuracaoServico;
 
-        public NFeFacade(bool booPularCarregamentoDoArquivo = false)
+        public NFeFacade(ConfiguracaoServico configuracaoServico, bool booPularCarregamentoDoArquivo = false)
         {
+            _configuracaoServico = configuracaoServico;
             _nomeArquivoConfiguracoes = "zeus.cfg";
             _pathArquivoConfiguracoes = @"{caminho}\{zeus}".Replace("{caminho}", Directory.GetCurrentDirectory()).Replace("{zeus}", _nomeArquivoConfiguracoes);
 
@@ -62,33 +65,33 @@ namespace NFe.Integracao
 
         public retConsStatServ ConsultarStatusServico()
         {
-            var servicoNFe = new ServicosNFe(ConfiguracaoServico.Instancia);
+            var servicoNFe = new ServicosNFe(_configuracaoServico);
             return servicoNFe.NfeStatusServico().Retorno;
         }
 
         public RetornoNFeAutorizacao EnviarNFe(Int32 numLote, Classes.NFe nfe)
         {
-            nfe.Assina(); //não precisa validar aqui, pois o lote será validado em ServicosNFe.NFeAutorizacao
-            var servicoNFe = new ServicosNFe(ConfiguracaoServico.Instancia);
+            nfe.Assina(_configuracaoServico); //não precisa validar aqui, pois o lote será validado em ServicosNFe.NFeAutorizacao
+            var servicoNFe = new ServicosNFe(_configuracaoServico);
             return servicoNFe.NFeAutorizacao(numLote,IndicadorSincronizacao.Assincrono, new List<Classes.NFe> { nfe });
         }
 
         public RetornoNFeRetAutorizacao ConsultarReciboDeEnvio(string recibo)
         {
-            var servicoNFe = new ServicosNFe(ConfiguracaoServico.Instancia);
+            var servicoNFe = new ServicosNFe(_configuracaoServico);
             return servicoNFe.NFeRetAutorizacao(recibo);
         }
 
         public RetornoRecepcaoEvento CancelarNFe(string cnpjEmitente, Int32 numeroLote, Int16 sequenciaEvento, string chaveAcesso, string protocolo, string justificativa)
         {
-            var servicoNFe = new ServicosNFe(ConfiguracaoServico.Instancia);
+            var servicoNFe = new ServicosNFe(_configuracaoServico);
             return servicoNFe.RecepcaoEventoCancelamento(numeroLote, sequenciaEvento, protocolo, chaveAcesso, justificativa, cnpjEmitente);
         }
 
         public RetornoNfeInutilizacao InutilizarNumeracao(int ano, string cnpj, string justificativa, int numeroInicial, int numeroFinal, int serie)
         {
-            var servicoNFe = new ServicosNFe(ConfiguracaoServico.Instancia);
-            return servicoNFe.NfeInutilizacao(cnpj, Convert.ToInt16(ano.ToString().Substring(2,2)), ConfiguracaoServico.Instancia.ModeloDocumento, Convert.ToInt16(serie), Convert.ToInt32(numeroInicial), Convert.ToInt32(numeroFinal), justificativa);
+            var servicoNFe = new ServicosNFe(_configuracaoServico);
+            return servicoNFe.NfeInutilizacao(cnpj, Convert.ToInt16(ano.ToString().Substring(2, 2)), _configuracaoServico.ModeloDocumento, Convert.ToInt16(serie), Convert.ToInt32(numeroInicial), Convert.ToInt32(numeroFinal), justificativa);
         }
 
         private void CarregarArquivoDeConfiguracoes()
@@ -96,30 +99,30 @@ namespace NFe.Integracao
             //Não há motivos para usar um arquivo externo durante o desenvolvimento
             if (System.Diagnostics.Debugger.IsAttached)
             {
-                ConfiguracaoServico.Instancia.Certificado.Arquivo = string.Empty;
-                ConfiguracaoServico.Instancia.Certificado.Senha = string.Empty;
-                ConfiguracaoServico.Instancia.DiretorioSalvarXml = string.Empty;
-                ConfiguracaoServico.Instancia.DiretorioSchemas = string.Empty;
-                ConfiguracaoServico.Instancia.cUF = Estado.MG;
-                ConfiguracaoServico.Instancia.ModeloDocumento = ModeloDocumento.NFe;
-                ConfiguracaoServico.Instancia.SalvarXmlServicos = true;
-                ConfiguracaoServico.Instancia.TimeOut = 5000;
-                ConfiguracaoServico.Instancia.tpAmb = TipoAmbiente.taHomologacao;
-                ConfiguracaoServico.Instancia.tpEmis = TipoEmissao.teNormal;
-
-                ConfiguracaoServico.Instancia.VersaoNfceAministracaoCSC = VersaoServico.ve310;
-                ConfiguracaoServico.Instancia.VersaoNFeAutorizacao = VersaoServico.ve310;
-                ConfiguracaoServico.Instancia.VersaoNfeConsultaCadastro = VersaoServico.ve310;
-                ConfiguracaoServico.Instancia.VersaoNfeConsultaDest = VersaoServico.ve310;
-                ConfiguracaoServico.Instancia.VersaoNfeConsultaProtocolo = VersaoServico.ve310;
-                ConfiguracaoServico.Instancia.VersaoNFeDistribuicaoDFe = VersaoServico.ve310;
-                ConfiguracaoServico.Instancia.VersaoNfeDownloadNF = VersaoServico.ve310;
-                ConfiguracaoServico.Instancia.VersaoNfeInutilizacao = VersaoServico.ve310;
-                ConfiguracaoServico.Instancia.VersaoNfeRecepcao = VersaoServico.ve310;
-                ConfiguracaoServico.Instancia.VersaoNFeRetAutorizacao = VersaoServico.ve310;
-                ConfiguracaoServico.Instancia.VersaoNfeRetRecepcao = VersaoServico.ve310;
-                ConfiguracaoServico.Instancia.VersaoNfeStatusServico = VersaoServico.ve310;
-                ConfiguracaoServico.Instancia.VersaoRecepcaoEventoCceCancelamento = VersaoServico.ve310;
+                _configuracaoServico.Certificado.Arquivo = string.Empty;
+                _configuracaoServico.Certificado.Senha = string.Empty;
+                _configuracaoServico.DiretorioSalvarXml = string.Empty;
+                _configuracaoServico.DiretorioSchemas = string.Empty;
+                _configuracaoServico.cUF = Estado.MG;
+                _configuracaoServico.ModeloDocumento = ModeloDocumento.NFe;
+                _configuracaoServico.SalvarXmlServicos = true;
+                _configuracaoServico.TimeOut = 5000;
+                _configuracaoServico.tpAmb = TipoAmbiente.taHomologacao;
+                _configuracaoServico.tpEmis = TipoEmissao.teNormal;
+                
+                _configuracaoServico.VersaoNfceAministracaoCSC = VersaoServico.ve310;
+                _configuracaoServico.VersaoNFeAutorizacao = VersaoServico.ve310;
+                _configuracaoServico.VersaoNfeConsultaCadastro = VersaoServico.ve310;
+                _configuracaoServico.VersaoNfeConsultaDest = VersaoServico.ve310;
+                _configuracaoServico.VersaoNfeConsultaProtocolo = VersaoServico.ve310;
+                _configuracaoServico.VersaoNFeDistribuicaoDFe = VersaoServico.ve310;
+                _configuracaoServico.VersaoNfeDownloadNF = VersaoServico.ve310;
+                _configuracaoServico.VersaoNfeInutilizacao = VersaoServico.ve310;
+                _configuracaoServico.VersaoNfeRecepcao = VersaoServico.ve310;
+                _configuracaoServico.VersaoNFeRetAutorizacao = VersaoServico.ve310;
+                _configuracaoServico.VersaoNfeRetRecepcao = VersaoServico.ve310;
+                _configuracaoServico.VersaoNfeStatusServico = VersaoServico.ve310;
+                _configuracaoServico.VersaoRecepcaoEventoCceCancelamento = VersaoServico.ve310;
 
                 return; // <------- ATENÇÃO 
             }
@@ -186,33 +189,33 @@ namespace NFe.Integracao
 
                 switch (strChave)
                 {
-                    case "certificado_arquivo": ConfiguracaoServico.Instancia.Certificado.Arquivo = strValor; break;
-                    case "certificado_senha": ConfiguracaoServico.Instancia.Certificado.Senha = strValor; break;
-                    case "diretorio_xml": ConfiguracaoServico.Instancia.DiretorioSalvarXml = strValor; break;
-                    case "diretorio_schemas": ConfiguracaoServico.Instancia.DiretorioSchemas = strValor; break;
-                    case "estado_emitente": ConfiguracaoServico.Instancia.cUF = (Estado)Enum.Parse(typeof(Estado), strValor); break;
-                    case "modelo_documento": ConfiguracaoServico.Instancia.ModeloDocumento = (strValor == "55" ? ModeloDocumento.NFe : ModeloDocumento.NFCe); break;
-                    case "salvar_xml_servicos": ConfiguracaoServico.Instancia.SalvarXmlServicos = (strValor == "sim"); break;
-                    case "time_out": ConfiguracaoServico.Instancia.TimeOut = 5000; break;
-                    case "tipo_ambiente": ConfiguracaoServico.Instancia.tpAmb = (strValor == "p" ? TipoAmbiente.taProducao : TipoAmbiente.taHomologacao); break;
-                    case "tipo_emissao": ConfiguracaoServico.Instancia.tpEmis = (TipoEmissao)Enum.Parse(typeof(TipoEmissao), strValor); break;
+                    case "certificado_arquivo": _configuracaoServico.Certificado.Arquivo = strValor; break;
+                    case "certificado_senha": _configuracaoServico.Certificado.Senha = strValor; break;
+                    case "diretorio_xml": _configuracaoServico.DiretorioSalvarXml = strValor; break;
+                    case "diretorio_schemas": _configuracaoServico.DiretorioSchemas = strValor; break;
+                    case "estado_emitente": _configuracaoServico.cUF = (Estado)Enum.Parse(typeof(Estado), strValor); break;
+                    case "modelo_documento": _configuracaoServico.ModeloDocumento = (strValor == "55" ? ModeloDocumento.NFe : ModeloDocumento.NFCe); break;
+                    case "salvar_xml_servicos": _configuracaoServico.SalvarXmlServicos = (strValor == "sim"); break;
+                    case "time_out": _configuracaoServico.TimeOut = 5000; break;
+                    case "tipo_ambiente": _configuracaoServico.tpAmb = (strValor == "p" ? TipoAmbiente.taProducao : TipoAmbiente.taHomologacao); break;
+                    case "tipo_emissao": _configuracaoServico.tpEmis = (TipoEmissao)Enum.Parse(typeof(TipoEmissao), strValor); break;
                 }
             }
 
             //Versão atual da NFe/NFCe: 3.10
-            ConfiguracaoServico.Instancia.VersaoNfceAministracaoCSC = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoNFeAutorizacao = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoNfeConsultaCadastro = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoNfeConsultaDest = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoNfeConsultaProtocolo = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoNFeDistribuicaoDFe = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoNfeDownloadNF = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoNfeInutilizacao = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoNfeRecepcao = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoNFeRetAutorizacao = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoNfeRetRecepcao = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoNfeStatusServico = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoRecepcaoEventoCceCancelamento = VersaoServico.ve310;
+            _configuracaoServico.VersaoNfceAministracaoCSC = VersaoServico.ve310;
+            _configuracaoServico.VersaoNFeAutorizacao = VersaoServico.ve310;
+            _configuracaoServico.VersaoNfeConsultaCadastro = VersaoServico.ve310;
+            _configuracaoServico.VersaoNfeConsultaDest = VersaoServico.ve310;
+            _configuracaoServico.VersaoNfeConsultaProtocolo = VersaoServico.ve310;
+            _configuracaoServico.VersaoNFeDistribuicaoDFe = VersaoServico.ve310;
+            _configuracaoServico.VersaoNfeDownloadNF = VersaoServico.ve310;
+            _configuracaoServico.VersaoNfeInutilizacao = VersaoServico.ve310;
+            _configuracaoServico.VersaoNfeRecepcao = VersaoServico.ve310;
+            _configuracaoServico.VersaoNFeRetAutorizacao = VersaoServico.ve310;
+            _configuracaoServico.VersaoNfeRetRecepcao = VersaoServico.ve310;
+            _configuracaoServico.VersaoNfeStatusServico = VersaoServico.ve310;
+            _configuracaoServico.VersaoRecepcaoEventoCceCancelamento = VersaoServico.ve310;
         }
 
         public void CriarArquivoDeConfiguracoes()

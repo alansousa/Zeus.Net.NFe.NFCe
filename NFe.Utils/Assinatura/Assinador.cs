@@ -46,15 +46,15 @@ namespace NFe.Utils.Assinatura
         /// <param name="objeto"></param>
         /// <param name="id"></param>
         /// <returns>Retorna um objeto do tipo Classes.Assinatura.Signature, contendo a assinatura do objeto passado como parâmetro</returns>
-        public static Signature ObterAssinatura<T>(T objeto, string id) where T : class
+        public static Signature ObterAssinatura<T>(T objeto, ConfiguracaoServico servico, string id) where T : class
         {
             var objetoLocal = objeto;
             if (id == null)
                 throw new Exception("Não é possível assinar um objeto evento sem sua respectiva Id!");
 
-            var certificado = string.IsNullOrEmpty(ConfiguracaoServico.Instancia.Certificado.Arquivo)
-                ? CertificadoDigital.ObterDoRepositorio(ConfiguracaoServico.Instancia.Certificado.Serial, ConfiguracaoServico.Instancia.Certificado.Senha)
-                : CertificadoDigital.ObterDeArquivo(ConfiguracaoServico.Instancia.Certificado.Arquivo, ConfiguracaoServico.Instancia.Certificado.Senha);
+            var certificado = string.IsNullOrEmpty(servico.Certificado.Arquivo)
+                ? CertificadoDigital.ObterDoRepositorio(servico.Certificado.Serial, servico.Certificado.Senha)
+                : CertificadoDigital.ObterDeArquivo(servico.Certificado.Arquivo, servico.Certificado.Senha);
 
             var documento = new XmlDocument {PreserveWhitespace = true};
             documento.LoadXml(FuncoesXml.ClasseParaXmlString(objetoLocal));

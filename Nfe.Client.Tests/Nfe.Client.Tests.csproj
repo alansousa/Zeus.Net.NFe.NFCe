@@ -35,23 +35,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NFe.Classes, Version=1.2.0.5, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Zeus.Net.NFe.NFCe.1.0.1.205\lib\net40\NFe.Classes.dll</HintPath>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NFe.Servicos, Version=1.2.0.5, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Zeus.Net.NFe.NFCe.1.0.1.205\lib\net40\NFe.Servicos.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NFe.Utils, Version=1.2.0.5, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Zeus.Net.NFe.NFCe.1.0.1.205\lib\net40\NFe.Utils.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NFe.Wsdl, Version=1.2.0.5, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Zeus.Net.NFe.NFCe.1.0.1.205\lib\net40\NFe.Wsdl.dll</HintPath>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -67,10 +62,165 @@
   </Choose>
   <ItemGroup>
     <Compile Include="EnviarUmaNotaComSucessoEmHomologacao.cs" />
+    <Compile Include="Models\CP_CATEGORIA_PAGAMENTO_RECEBIMENTO_CPR.cs" />
+    <Compile Include="Models\CP_CATEGORIA_TIPO_CTP.cs" />
+    <Compile Include="Models\CP_CONDICOES_PAGTO_CPA.cs" />
+    <Compile Include="Models\CP_CONTA_A_PAGAR_CPA.cs" />
+    <Compile Include="Models\CP_CONTA_A_PAGAR_CPA__BACKUP.cs" />
+    <Compile Include="Models\CP_CONTA_A_RECEBER_CRE.cs" />
+    <Compile Include="Models\CP_TIPO_PAGAMENTO_TPG.cs" />
+    <Compile Include="Models\ES_COMPONENTE_KIT.cs" />
+    <Compile Include="Models\ES_DEPOSITO_DPT.cs" />
+    <Compile Include="Models\ES_ESTOQUE_EST.cs" />
+    <Compile Include="Models\ES_ESTOQUE_MOVIMENTACAO_EMV.cs" />
+    <Compile Include="Models\ES_FAMILIA_ITEM_FAI.cs" />
+    <Compile Include="Models\ES_ITEM_CUSTO_MEDIO_ICM.cs" />
+    <Compile Include="Models\ES_ITEM_ITE.cs" />
+    <Compile Include="Models\ES_PEDIDO_DE_COMPRA_PDC.cs" />
+    <Compile Include="Models\ES_SUB_FAMILIA_ITEM_SFI.cs" />
+    <Compile Include="Models\ES_TIPO_SOLUCAO_TPS.cs" />
+    <Compile Include="Models\FA_CONTRATO_ADITIVOS_ADI.cs" />
+    <Compile Include="Models\FA_CONTRATO_ALTERACOES_ALT.cs" />
+    <Compile Include="Models\FA_CONTRATO_CON.cs" />
+    <Compile Include="Models\FA_CONTRATO_INDICE_CORRECAO_IND.cs" />
+    <Compile Include="Models\FA_CONTRATO_PRODUTOS_CPR.cs" />
+    <Compile Include="Models\FA_CONTRATO_SLA.cs" />
+    <Compile Include="Models\FA_CONTRATO_TIPOS_SLA_TSL.cs" />
+    <Compile Include="Models\FA_CONTRATO_TIPO_TCO.cs" />
+    <Compile Include="Models\FA_NOTA_FISCAL_ITENS_NFI.cs" />
+    <Compile Include="Models\FA_NOTA_FISCAL_NFE.cs" />
+    <Compile Include="Models\FA_PARAMETROS_IMPOSTOS_PIM.cs" />
+    <Compile Include="Models\FA_TIPI_NCM.cs" />
+    <Compile Include="Models\FA_TIPO_IMPOSTO_TIM.cs" />
+    <Compile Include="Models\FA_TIPO_TRANSPORTE_TTR.cs" />
+    <Compile Include="Models\FA_TIPO_VOLUME_TVO.cs" />
+    <Compile Include="Models\FA_TRANSPORTADORA_TRA.cs" />
+    <Compile Include="Models\FA_VENDEDOR_VEN.cs" />
+    <Compile Include="Models\GE_ACTIONS_ACT.cs" />
+    <Compile Include="Models\GE_AVISOS_AVI.cs" />
+    <Compile Include="Models\GE_AVISOS_MODULOS_MOD.cs" />
+    <Compile Include="Models\GE_CENTRO_CUSTO_RECEITAS_CCR.cs" />
+    <Compile Include="Models\GE_CNAE_CNA.cs" />
+    <Compile Include="Models\GE_CODIGO_SERVICO_CSV.cs" />
+    <Compile Include="Models\GE_CONTATO_PARCEIRO_CON.cs" />
+    <Compile Include="Models\GE_CONTA_CORRENTE_CTC.cs" />
+    <Compile Include="Models\GE_CONTA_CORRENTE_EXTRATO_CCE.cs" />
+    <Compile Include="Models\GE_EMPRESA_EMP.cs" />
+    <Compile Include="Models\GE_EMPRESA_ENDERECO_EEN.cs" />
+    <Compile Include="Models\GE_ENDERECO_PARCEIRO_END.cs" />
+    <Compile Include="Models\GE_GRUPO_PARCEIRO_NEGOCIO_GPN.cs" />
+    <Compile Include="Models\GE_IBGE_IBG.cs" />
+    <Compile Include="Models\GE_LANCAMENTOS_CONTA_CORRENTE_LCC.cs" />
+    <Compile Include="Models\GE_MENU_MEN.cs" />
+    <Compile Include="Models\GE_PAIS_PAI.cs" />
+    <Compile Include="Models\GE_PARCEIRO_NEGOCIO_PNE.cs" />
+    <Compile Include="Models\GE_PERFIL_USUARIO_PRU.cs" />
+    <Compile Include="Models\GE_POSICAO_TITULO_POT.cs" />
+    <Compile Include="Models\GE_PROJETO_PJO.cs" />
+    <Compile Include="Models\GE_STATUS_USUARIO_STU.cs" />
+    <Compile Include="Models\GE_TIPO_CONTATO_TCO.cs" />
+    <Compile Include="Models\GE_TIPO_DOCUMENTO_TDO.cs" />
+    <Compile Include="Models\GE_TIPO_ENDERECO_TEN.cs" />
+    <Compile Include="Models\GE_TIPO_SERVICO_TSV.cs" />
+    <Compile Include="Models\GE_USUARIO_USU.cs" />
+    <Compile Include="Models\Mapping\CP_CATEGORIA_PAGAMENTO_RECEBIMENTO_CPRMap.cs" />
+    <Compile Include="Models\Mapping\CP_CATEGORIA_TIPO_CTPMap.cs" />
+    <Compile Include="Models\Mapping\CP_CONDICOES_PAGTO_CPAMap.cs" />
+    <Compile Include="Models\Mapping\CP_CONTA_A_PAGAR_CPAMap.cs" />
+    <Compile Include="Models\Mapping\CP_CONTA_A_PAGAR_CPA__BACKUPMap.cs" />
+    <Compile Include="Models\Mapping\CP_CONTA_A_RECEBER_CREMap.cs" />
+    <Compile Include="Models\Mapping\CP_TIPO_PAGAMENTO_TPGMap.cs" />
+    <Compile Include="Models\Mapping\ES_COMPONENTE_KITMap.cs" />
+    <Compile Include="Models\Mapping\ES_DEPOSITO_DPTMap.cs" />
+    <Compile Include="Models\Mapping\ES_ESTOQUE_ESTMap.cs" />
+    <Compile Include="Models\Mapping\ES_ESTOQUE_MOVIMENTACAO_EMVMap.cs" />
+    <Compile Include="Models\Mapping\ES_FAMILIA_ITEM_FAIMap.cs" />
+    <Compile Include="Models\Mapping\ES_ITEM_CUSTO_MEDIO_ICMMap.cs" />
+    <Compile Include="Models\Mapping\ES_ITEM_ITEMap.cs" />
+    <Compile Include="Models\Mapping\ES_PEDIDO_DE_COMPRA_PDCMap.cs" />
+    <Compile Include="Models\Mapping\ES_SUB_FAMILIA_ITEM_SFIMap.cs" />
+    <Compile Include="Models\Mapping\ES_TIPO_SOLUCAO_TPSMap.cs" />
+    <Compile Include="Models\Mapping\FA_CONTRATO_ADITIVOS_ADIMap.cs" />
+    <Compile Include="Models\Mapping\FA_CONTRATO_ALTERACOES_ALTMap.cs" />
+    <Compile Include="Models\Mapping\FA_CONTRATO_CONMap.cs" />
+    <Compile Include="Models\Mapping\FA_CONTRATO_INDICE_CORRECAO_INDMap.cs" />
+    <Compile Include="Models\Mapping\FA_CONTRATO_PRODUTOS_CPRMap.cs" />
+    <Compile Include="Models\Mapping\FA_CONTRATO_SLAMap.cs" />
+    <Compile Include="Models\Mapping\FA_CONTRATO_TIPOS_SLA_TSLMap.cs" />
+    <Compile Include="Models\Mapping\FA_CONTRATO_TIPO_TCOMap.cs" />
+    <Compile Include="Models\Mapping\FA_NOTA_FISCAL_ITENS_NFIMap.cs" />
+    <Compile Include="Models\Mapping\FA_NOTA_FISCAL_NFEMap.cs" />
+    <Compile Include="Models\Mapping\FA_PARAMETROS_IMPOSTOS_PIMMap.cs" />
+    <Compile Include="Models\Mapping\FA_TIPI_NCMMap.cs" />
+    <Compile Include="Models\Mapping\FA_TIPO_IMPOSTO_TIMMap.cs" />
+    <Compile Include="Models\Mapping\FA_TIPO_TRANSPORTE_TTRMap.cs" />
+    <Compile Include="Models\Mapping\FA_TIPO_VOLUME_TVOMap.cs" />
+    <Compile Include="Models\Mapping\FA_TRANSPORTADORA_TRAMap.cs" />
+    <Compile Include="Models\Mapping\FA_VENDEDOR_VENMap.cs" />
+    <Compile Include="Models\Mapping\GE_ACTIONS_ACTMap.cs" />
+    <Compile Include="Models\Mapping\GE_AVISOS_AVIMap.cs" />
+    <Compile Include="Models\Mapping\GE_AVISOS_MODULOS_MODMap.cs" />
+    <Compile Include="Models\Mapping\GE_CENTRO_CUSTO_RECEITAS_CCRMap.cs" />
+    <Compile Include="Models\Mapping\GE_CNAE_CNAMap.cs" />
+    <Compile Include="Models\Mapping\GE_CODIGO_SERVICO_CSVMap.cs" />
+    <Compile Include="Models\Mapping\GE_CONTATO_PARCEIRO_CONMap.cs" />
+    <Compile Include="Models\Mapping\GE_CONTA_CORRENTE_CTCMap.cs" />
+    <Compile Include="Models\Mapping\GE_CONTA_CORRENTE_EXTRATO_CCEMap.cs" />
+    <Compile Include="Models\Mapping\GE_EMPRESA_EMPMap.cs" />
+    <Compile Include="Models\Mapping\GE_EMPRESA_ENDERECO_EENMap.cs" />
+    <Compile Include="Models\Mapping\GE_ENDERECO_PARCEIRO_ENDMap.cs" />
+    <Compile Include="Models\Mapping\GE_GRUPO_PARCEIRO_NEGOCIO_GPNMap.cs" />
+    <Compile Include="Models\Mapping\GE_IBGE_IBGMap.cs" />
+    <Compile Include="Models\Mapping\GE_LANCAMENTOS_CONTA_CORRENTE_LCCMap.cs" />
+    <Compile Include="Models\Mapping\GE_MENU_MENMap.cs" />
+    <Compile Include="Models\Mapping\GE_PAIS_PAIMap.cs" />
+    <Compile Include="Models\Mapping\GE_PARCEIRO_NEGOCIO_PNEMap.cs" />
+    <Compile Include="Models\Mapping\GE_PERFIL_USUARIO_PRUMap.cs" />
+    <Compile Include="Models\Mapping\GE_POSICAO_TITULO_POTMap.cs" />
+    <Compile Include="Models\Mapping\GE_PROJETO_PJOMap.cs" />
+    <Compile Include="Models\Mapping\GE_STATUS_USUARIO_STUMap.cs" />
+    <Compile Include="Models\Mapping\GE_TIPO_CONTATO_TCOMap.cs" />
+    <Compile Include="Models\Mapping\GE_TIPO_DOCUMENTO_TDOMap.cs" />
+    <Compile Include="Models\Mapping\GE_TIPO_ENDERECO_TENMap.cs" />
+    <Compile Include="Models\Mapping\GE_TIPO_SERVICO_TSVMap.cs" />
+    <Compile Include="Models\Mapping\GE_USUARIO_USUMap.cs" />
+    <Compile Include="Models\Mapping\PD_PEDIDO_ITEM_PITMap.cs" />
+    <Compile Include="Models\Mapping\PD_PEDIDO_VENDA_PDVMap.cs" />
+    <Compile Include="Models\Mapping\PD_TIPO_VENDA_TPVMap.cs" />
+    <Compile Include="Models\PD_PEDIDO_ITEM_PIT.cs" />
+    <Compile Include="Models\PD_PEDIDO_VENDA_PDV.cs" />
+    <Compile Include="Models\PD_TIPO_VENDA_TPV.cs" />
+    <Compile Include="PlexosContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NFe.Classes\NFe.Classes.csproj">
+      <Project>{29ca1da2-440d-484b-951a-cf1b2eb27984}</Project>
+      <Name>NFe.Classes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nfe.Client\Nfe.Client.csproj">
+      <Project>{6e14939f-a3bb-405f-9d0b-6f598b0cc905}</Project>
+      <Name>Nfe.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NFe.Servicos\NFe.Servicos.csproj">
+      <Project>{ccfdb136-3ee3-4aed-aa69-26abbcb553c6}</Project>
+      <Name>NFe.Servicos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NFe.Utils\NFe.Utils.csproj">
+      <Project>{e35e7c4a-5690-4979-8b43-002975b48eaa}</Project>
+      <Name>NFe.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NFe.Wsdl\NFe.Wsdl.csproj">
+      <Project>{23ba5fa7-8bd6-4ae1-9895-54f119dd15fa}</Project>
+      <Name>NFe.Wsdl</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
